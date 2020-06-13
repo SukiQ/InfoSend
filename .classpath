@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="jgoodies-common-1.8.0.jar" sourcepath="jgoodies-common-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/kafka-clients-0.10.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/zkclient-0.3.jar"/>
+	<classpathentry kind="lib" path="lib/zookeeper-3.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/fastjson-1.2.29.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/snmp4j-2.5.6.jar"/>
+	<classpathentry kind="lib" path="lib/com.ibm.mq.jar"/>
+	<classpathentry kind="lib" path="lib/commons-net-3.5.jar"/>
+	<classpathentry kind="lib" path="lib/activemq-all-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/oracle.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
