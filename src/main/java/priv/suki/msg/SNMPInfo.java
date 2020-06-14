@@ -79,15 +79,14 @@ public class SNMPInfo implements OrgInfo {
      * SNMP的消息采用多行拼接法
      *
      * @param builtFunc 方法对象
-     * @param row_num   行数
+     * @param rowNum    行数
      * @return 返回拼接周的消息
      */
-    public String structureMsg(BuiltFunc builtFunc, int row_num) {
+    public String structureMsg(BuiltFunc builtFunc, int rowNum) {
         // TODO Auto-generated method stub
-        return StringUtil.buildeMsg(msglistBind.get(row_num), builtFunc);
+        return StringUtil.buildeMsg(msglistBind.get(rowNum), builtFunc);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public OrgInfo appendMsg(int appendNum, BuiltFunc builtFunc) throws Exception {
 
@@ -130,7 +129,7 @@ public class SNMPInfo implements OrgInfo {
             }
             if (snmpMsg.get(i).getTrapType() == SNMPBindVar.TIMETICKS) {
                 pdu.add(new VariableBinding(new OID(snmpMsg.get(i).getTrapOid()), new TimeTicks(
-                        StringUtil.stringToDate(snmpMsg.get(i).getBindVar(), "yyyy-MM-dd HH:MM:SS").getDate())));
+                        StringUtil.getTimeMill(snmpMsg.get(i).getBindVar(), Propert.TIME_FORMAT))));
             }
         }
         return new SNMPInfo(pdu, snmpMsg);

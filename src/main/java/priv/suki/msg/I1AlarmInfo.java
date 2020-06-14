@@ -64,13 +64,13 @@ public class I1AlarmInfo implements OrgInfo {
 
             vo = i1Util.buildAlarmReqMsg(this.structureMsg(builtFunc));
 
-            startSign = StringUtil.IntToBytes(I1CommonACKMsgVO.startSign, 2);
-            timeStamp = StringUtil.IntToBytes(vo.getTimeStamp(), 4);
-            timeStamp_ms = StringUtil.IntToBytes(vo.getTimeStamp_ms(), 2);
-            msgType = StringUtil.IntToBytes(vo.getMsgType(), 2);
-            msgFormat = StringUtil.IntToBytes(vo.getMsgFormat(), 2);
-            reserve = StringUtil.IntToBytes(vo.getReserve(), 2);
-            msgLength = StringUtil.IntToBytes(vo.getMsgBody().getBytes(Propert.getPropert().getCharset()).length, 2);
+            startSign = StringUtil.intToBytes(I1CommonACKMsgVO.startSign, 2);
+            timeStamp = StringUtil.intToBytes(vo.getTimeStamp(), 4);
+            timeStamp_ms = StringUtil.intToBytes(vo.getTimeStamp_ms(), 2);
+            msgType = StringUtil.intToBytes(vo.getMsgType(), 2);
+            msgFormat = StringUtil.intToBytes(vo.getMsgFormat(), 2);
+            reserve = StringUtil.intToBytes(vo.getReserve(), 2);
+            msgLength = StringUtil.intToBytes(vo.getMsgBody().getBytes(Propert.getPropert().getCharset()).length, 2);
 
             byte[] msgbyte = vo.getMsgBody().getBytes(Propert.getPropert().getCharset());
 

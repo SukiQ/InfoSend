@@ -1,10 +1,9 @@
 package priv.suki.util;
 
-import priv.suki.util.BuiltFunc;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,19 +69,17 @@ public class StringUtil {
 
     }
 
+
     /**
-     * String 类型转为Date类型
+     * 获取给定时间的毫秒数
      *
-     * @param strTime    时间
-     * @param formatType 时间格式
-     * @return 时间
-     * @throws ParseException 转换异常
+     * @param strTime    给定时间
+     * @param formatType 给定时间格式
+     * @return 毫秒数
      */
-    public static Date stringToDate(String strTime, String formatType) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat(formatType);
-        Date date;
-        date = formatter.parse(strTime);
-        return date;
+    public static long getTimeMill(String strTime, String formatType) {
+        ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(Instant.now());
+        return LocalDateTime.parse(strTime, DateTimeFormatter.ofPattern(formatType)).toInstant(offset).toEpochMilli();
     }
 
 
@@ -104,21 +101,21 @@ public class StringUtil {
     }
 
     public static byte[] byteMergerAll(byte[]... values) {
-        int length_byte = 0;
+        int lengthByte = 0;
         for (byte[] value : values) {
-            length_byte += value.length;
+            lengthByte += value.length;
         }
-        byte[] all_byte = new byte[length_byte];
+        byte[] allByte = new byte[lengthByte];
         int countLength = 0;
         for (byte[] b : values) {
-            System.arraycopy(b, 0, all_byte, countLength, b.length);
+            System.arraycopy(b, 0, allByte, countLength, b.length);
             countLength += b.length;
         }
-        return all_byte;
+        return allByte;
     }
 
 
-    public static byte[] IntToBytes(int num, int len) {
+    public static byte[] intToBytes(int num, int len) {
         byte[] tmpbyte;
         if (len <= 0) {
             return null;

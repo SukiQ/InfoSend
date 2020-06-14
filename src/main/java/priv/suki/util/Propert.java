@@ -17,6 +17,7 @@ import lombok.Setter;
 public class Propert {
 
 	/*常量*/
+	public static final String TIME_FORMAT = "yyyy-MM-dd HH:mm:ss"; // 标准时间格式
 	public static final String SYS_FILE_SPARATOR = System.getProperty("file.separator"); // 系统分隔符
 	public static final String SYS_LINE_SPARATOR = System.getProperty("line.separator"); //系统换行符
 	public static final boolean PARAM_CAN_BE_EMPTY = false; // 参数可以为空
@@ -140,15 +141,19 @@ public class Propert {
 	/**
 	 * restful客户端/服务端
 	 */
-	private String restful_type;
+	private String restfulType;
 	/**
 	 * 服务端启动端口
 	 */
-	private int restful_port;
+	private int restfulPort;
 	/**
 	 * 服务端URL
 	 */
-	private String restful_url;
+	private String restfulUrl;
+	/**
+	 * 消息类型json/xml
+	 */
+	private String restfulMsgType;
 
 	private static Propert propert = new Propert();
 

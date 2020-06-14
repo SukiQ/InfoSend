@@ -7,6 +7,8 @@ package priv.suki.util.restful;
 public class RestfulService {
     public static final String SERVER = "server";
     public static final String CLIENT = "client";
-    public static final int CONNNUM = 10;
+    public static final int CONNNUM = 1;
     public static final String GET = "GET";
+    public static final String JSON = "json";
+    public static final String XML = "xml";
 }

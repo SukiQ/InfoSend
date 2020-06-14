@@ -61,10 +61,10 @@ public class OmcInfo implements OrgInfo {
 
             vo = northUtil.buildAlarmReqMsg(this.structureMsg(builtFunc));
 
-            startSign = StringUtil.IntToBytes(CommonACKMsgVO.START_SIGN, 2);
-            msgType = StringUtil.IntToBytes(vo.getMsgType(), 1);
-            timeStamp = StringUtil.IntToBytes(vo.getTimeStamp(), 4);
-            msgLength = StringUtil.IntToBytes(vo.getMsgBody().getBytes(Propert.getPropert().getCharset()).length, 2);
+            startSign = StringUtil.intToBytes(CommonACKMsgVO.START_SIGN, 2);
+            msgType = StringUtil.intToBytes(vo.getMsgType(), 1);
+            timeStamp = StringUtil.intToBytes(vo.getTimeStamp(), 4);
+            msgLength = StringUtil.intToBytes(vo.getMsgBody().getBytes(Propert.getPropert().getCharset()).length, 2);
 
             byte[] msgbyte = vo.getMsgBody().getBytes(Propert.getPropert().getCharset());
 
