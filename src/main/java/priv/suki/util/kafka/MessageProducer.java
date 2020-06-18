@@ -17,7 +17,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  */
 public class MessageProducer {
     public static Log log = LogFactory.getLog(MessageProducer.class);
-    KafkaProducer<Object, Object> producer = null;
+    KafkaProducer<Object, Object> producer;
 
     /**
      * 构造,初始化kafka参数
@@ -58,7 +58,7 @@ public class MessageProducer {
             props.put("bootstrap.servers", kafkaBrokers);
             log.info("通过zookeeper" + zkServers + "搜索到kafka队列：" + kafkaBrokers);
         }
-        producer = new KafkaProducer<Object, Object>(props);
+        producer = new KafkaProducer<>(props);
     }
 
     /**
@@ -71,19 +71,19 @@ public class MessageProducer {
      * @param isTimeStamp 是否记录时间
      */
     public void send(Object key, Object value, String topic, Integer partitionId, boolean isTimeStamp) {
-        ProducerRecord<Object, Object> record = null;
+        ProducerRecord<Object, Object> record;
         if (null == key) {
             /* 按照round-robin模式发送到每个Partition */
-            record = new ProducerRecord<Object, Object>(topic, value);
+            record = new ProducerRecord<>(topic, value);
         } else if (null == partitionId) {
             /* 会按照hasy(key)发送至对应Partition */
-            record = new ProducerRecord<Object, Object>(topic, key, value);
+            record = new ProducerRecord<>(topic, key, value);
         } else if (isTimeStamp) {
             /* 发送至指定Partition,并记录时间戳 */
-            record = new ProducerRecord<Object, Object>(topic, partitionId, System.currentTimeMillis(), key, value);
+            record = new ProducerRecord<>(topic, partitionId, System.currentTimeMillis(), key, value);
         } else {
             /* 发送至指定Partition */
-            record = new ProducerRecord<Object, Object>(topic, partitionId, key, value);
+            record = new ProducerRecord<>(topic, partitionId, key, value);
         }
 
         this.producer.send(record, new KafkaSendCallback(record, null, log));
@@ -96,9 +96,8 @@ public class MessageProducer {
      * @param recordKey 发送序号
      * @param msg       待发送消息
      * @param topic     topic
-     * @throws Exception
      */
-    public void send(Object recordKey, byte[] msg, String topic) throws Exception {
+    public void send(Object recordKey, byte[] msg, String topic) {
         this.send(recordKey, msg, topic, null, false);
     }
 
@@ -107,9 +106,8 @@ public class MessageProducer {
      *
      * @param msg   待发送消息
      * @param topic topic
-     * @throws Exception
      */
-    public void send(byte[] msg, String topic) throws Exception {
+    public void send(byte[] msg, String topic) {
         this.send(null, msg, topic, null, false);
     }
 

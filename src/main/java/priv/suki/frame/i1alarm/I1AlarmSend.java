@@ -157,11 +157,9 @@ public class I1AlarmSend {
         /**
          * 顺序发送选择框监听，选贼后会打开相关的填选框
          */
-        checkbox_normal.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                panel_stormParam.setVisible(false);
-                panel_sendParam.setVisible(true);
-            }
+        checkbox_normal.addActionListener(e -> {
+            panel_stormParam.setVisible(false);
+            panel_sendParam.setVisible(true);
         });
         scrollPane = new JScrollPane();
         scrollPane.setBounds(36, 0, 409, 367);
@@ -202,8 +200,8 @@ public class I1AlarmSend {
         panel_send.add(checkbox_normal);
 
         checkbox_storm = new JCheckBox("\u98CE\u66B4\u5F0F\u53D1\u9001");
-        /**
-         * 风暴发送选择框监听，选贼后会打开相关的填选框
+        /*
+          风暴发送选择框监听，选贼后会打开相关的填选框
          */
         checkbox_storm.addActionListener(e -> {
             panel_stormParam.setVisible(true);
@@ -330,12 +328,12 @@ public class I1AlarmSend {
         panel_send.add(panel_sendParam);
         panel_sendParam.setLayout(null);
 
-        Label label_rate = new Label("Rate:");
-        label_rate.setBounds(10, 7, 65, 36);
-        panel_sendParam.add(label_rate);
-        label_rate.setAlignment(Label.CENTER);
-        label_rate.setBackground(FrameHelper.LABEL_TONE);
-        label_rate.setFont(new Font("微软雅黑 Light", Font.PLAIN, 13));
+        Label labelRate = new Label("Rate:");
+        labelRate.setBounds(10, 7, 65, 36);
+        panel_sendParam.add(labelRate);
+        labelRate.setAlignment(Label.CENTER);
+        labelRate.setBackground(FrameHelper.LABEL_TONE);
+        labelRate.setFont(new Font("微软雅黑 Light", Font.PLAIN, 13));
 
         rateField = new JTextField();
         rateField.setBounds(76, 7, 71, 37);
@@ -406,8 +404,8 @@ public class I1AlarmSend {
         btnSend = new JButton();
         btnSend.setText("Send");
 
-        /**
-         * SEND按钮监听，点击触发发送并会显示Stop按钮s
+        /*
+          SEND按钮监听，点击触发发送并会显示Stop按钮s
          */
         btnSend.addActionListener(e -> {
 

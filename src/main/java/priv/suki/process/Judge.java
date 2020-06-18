@@ -68,7 +68,7 @@ public class Judge {
     public static boolean isStorm() {
         return ContralCenter.getContral().getSendType() == Propert.STORM_SEND
                 && ContralCenter.getContral().getSendNum() == ContralCenter.getContral().getNumber()
-                && !ContralCenter.getContral().isStormSend() && !ContralCenter.getContral().isStormReady();
+                && !ContralCenter.getContral().isStormSend() && ContralCenter.getContral().isPreparing();
     }
 
 

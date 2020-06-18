@@ -83,7 +83,6 @@ public class SNMPInfo implements OrgInfo {
      * @return 返回拼接周的消息
      */
     public String structureMsg(BuiltFunc builtFunc, int rowNum) {
-        // TODO Auto-generated method stub
         return StringUtil.buildeMsg(msglistBind.get(rowNum), builtFunc);
     }
 

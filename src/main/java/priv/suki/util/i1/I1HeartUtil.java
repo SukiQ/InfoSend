@@ -20,9 +20,9 @@ public class I1HeartUtil implements Runnable {
     private I1Util i1Util;
     private BufferedInputStream bis;
     private BufferedOutputStream bos;
-    private String charset;
-    private static Log log = LogFactory.getLog(I1HeartUtil.class);
-    private static Logger logger = Logger.getLogger("Log4jMain");
+    private final String charset;
+    private static final Log log = LogFactory.getLog(I1HeartUtil.class);
+    private static final Logger logger = Logger.getLogger("Log4jMain");
 
     public I1HeartUtil(I1Util northUtil, BufferedInputStream bis, BufferedOutputStream bos, String charset) {
         this.i1Util = northUtil;

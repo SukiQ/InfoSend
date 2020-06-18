@@ -39,7 +39,7 @@ import javax.swing.JLayeredPane;
  * GNDP接口参数配置界面
  *
  * @author 花小琪
- * @version 1.0
+ * @version 1.0.3
  */
 public class GNDPPage {
     // Log

@@ -49,10 +49,6 @@ public class KafkaSend implements Send {
                 producer.send(msg.getBytes(charset), Propert.getPropert().getTopic());
             }
             logger.info("本次消息已经发送至" + partition + "分区");
-        } catch (InterruptedException Interrupted) {
-
-            throw Interrupted;
-
         } catch (Exception e) {
             // TODO Auto-generated catch block
             log.error("kafka本次发送失败", e);

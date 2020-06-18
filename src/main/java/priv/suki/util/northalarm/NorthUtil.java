@@ -22,10 +22,10 @@ import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
  * @version 1.0
  */
 public class NorthUtil {
-    private static Log log = LogFactory.getLog(NorthUtil.class);
+    private static final Log log = LogFactory.getLog(NorthUtil.class);
     // 锁对象
-    private Object sendLock = new Object();
-    private Object receiveLock = new Object();
+    private final Object sendLock = new Object();
+    private final Object receiveLock = new Object();
 
     /**
      * NorthUtil构造
@@ -39,7 +39,6 @@ public class NorthUtil {
      *
      * @param buis 消息流
      * @return 消息对象
-     * @throws Exception
      */
     public CommonACKMsgVO receive(BufferedInputStream buis) throws Exception {
         return receive(buis, "utf-8");
@@ -51,11 +50,10 @@ public class NorthUtil {
      * @param buis    消息流
      * @param charSet 字符编码
      * @return 消息对象
-     * @throws Exception
      */
     public CommonACKMsgVO receive(BufferedInputStream buis, String charSet) throws Exception {
         CommonACKMsgVO msg = new CommonACKMsgVO();
-        DataInputStream dis = null;
+        DataInputStream dis;
         DataInputStream disHead = null;
         ByteInputStream byis = null;
         byte[] headByte;
@@ -66,9 +64,7 @@ public class NorthUtil {
                 dis = new DataInputStream(buis);
                 headByte = new byte[9];
                 try {
-                    /**
-                     * OMC北向接口消息数据由消息头和消息体组成。消息头由9个字节（byte）表示 消息头由开始标志（2）-消息类型（1）-秒时间戳（4）-长度（2）
-                     */
+                    // OMC北向接口消息数据由消息头和消息体组成。消息头由9个字节（byte）表示 消息头由开始标志（2）-消息类型（1）-秒时间戳（4）-长度（2）//
                     dis.readFully(headByte);
                     byis = new ByteInputStream(headByte, 0, headByte.length);
 
@@ -116,17 +112,12 @@ public class NorthUtil {
 
     public boolean send(BufferedOutputStream bos, CommonACKMsgVO msg) throws Exception {
         boolean sendsucc = true;
-        ByteArrayOutputStream byteOutStream = null;
-        DataOutputStream oos = null;
         synchronized (sendLock) {
             if (bos == null) {
                 log.error("传入的输入流参数为null");
-                sendsucc = false;
                 return false;
             } else {
-                try {
-                    byteOutStream = new ByteArrayOutputStream(9);
-                    oos = new DataOutputStream(byteOutStream);
+                try (ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream(9); DataOutputStream oos = new DataOutputStream(byteOutStream)) {
                     oos.writeShort(CommonACKMsgVO.START_SIGN);
                     oos.writeByte(msg.getMsgType());
                     oos.writeInt(msg.getTimeStamp());
@@ -135,15 +126,8 @@ public class NorthUtil {
                     bos.write(msg.getMsgBody().getBytes(Propert.getPropert().getCharset()));
                     bos.flush();
                 } catch (Exception e) {
-                    sendsucc = false;
+                    log.error("发送异常", e);
                     throw new Exception(e);
-                } finally {
-                    if (oos != null) {
-                        oos.close();
-                    }
-                    if (byteOutStream != null) {
-                        byteOutStream.close();
-                    }
                 }
 
             }
@@ -155,27 +139,27 @@ public class NorthUtil {
     /**
      * 解析响应消息体，将消息以键值对存放
      *
-     * @param bodymsg
-     * @return
+     * @param bodymsg msg
+     * @return map
      */
     public Map<String, String> changemsg2map(String bodymsg) {
-        Map<String, String> msgs = new HashMap<String, String>();
-        if (bodymsg != null && !bodymsg.trim().equals("") && bodymsg.indexOf(";") != -1) {
+        Map<String, String> msgs = new HashMap<>();
+        if (bodymsg != null && !"".equals(bodymsg.trim()) && bodymsg.contains(";")) {
             String[] keyvaluemsgs = bodymsg.split(";", bodymsg.length());
             for (String keyvaluemsg : keyvaluemsgs) {
-//				System.out.println("keyvaluemsg="+keyvaluemsg);
-                if (keyvaluemsg.indexOf("=") != -1) {
+                if (keyvaluemsg.contains("=")) {
                     String[] values = keyvaluemsg.trim().split("=", keyvaluemsg.length());
                     if (values.length > 2) {
                         log.error("不正确的响应消息格式:" + bodymsg);
                         return null;
-                    } else
+                    } else {
                         msgs.put(values[0], values[1]);
+                    }
                 } else {
                     msgs.put("msgtype", keyvaluemsg);
                 }
             }
-        } else if (bodymsg != null && !bodymsg.trim().equals("")) {
+        } else if (bodymsg != null && !"".equals(bodymsg.trim())) {
             msgs.put("single", bodymsg);
         } else {
             log.error("传入的参数为空");
@@ -189,7 +173,6 @@ public class NorthUtil {
      *
      * @param msg 消息
      * @param bos 输出流
-     * @throws Exception
      */
     public boolean parseRecCom(CommonACKMsgVO msg, BufferedOutputStream bos) throws Exception {
         Map<String, String> msgs = changemsg2map(msg.getMsgBody());
@@ -226,14 +209,12 @@ public class NorthUtil {
     /**
      * 判断同步告警消息体
      *
-     * @param msg
-     * @param bos
-     * @return
-     * @throws Exception
+     * @param msg msg
+     * @param bos 输出流
      */
     public boolean parseSyncCom(CommonACKMsgVO msg, BufferedOutputStream bos) throws Exception {
         Map<String, String> msgs = changemsg2map(msg.getMsgBody());
-        int reqId = 0;
+        int reqId;
         if (msgs.containsKey("reqId")) {
             if (!StringUtil.isBlank(msgs.get("reqId"))) {
                 reqId = Integer.parseInt(msgs.get("reqId"));
@@ -300,7 +281,7 @@ public class NorthUtil {
      */
     public CommonACKMsgVO buildHeartReqMsg(int reqId) {
         return commonBuildReqMsg(
-                new StringBuffer("reqHeartBeat;reqId=").append(Integer.valueOf(reqId).toString()).toString(),
+                "reqHeartBeat;reqId=" + Integer.valueOf(reqId).toString(),
                 CommonACKMsgVO.ACKHEARTBEAT);
 
     }
@@ -312,8 +293,8 @@ public class NorthUtil {
      * @param result   登陆信息
      */
     public CommonACKMsgVO buildLoginReqMsg(Boolean loginAct, String result) {
-        return commonBuildReqMsg(new StringBuffer("ackLoginAlarm;result=").append(loginAct == true ? "succ" : "fail")
-                .append(";resDesc=").append(result).toString(), CommonACKMsgVO.ACKLOGINALARM);
+        return commonBuildReqMsg("ackLoginAlarm;result=" + (loginAct ? "succ" : "fail") +
+                ";resDesc=" + result, CommonACKMsgVO.ACKLOGINALARM);
 
     }
 

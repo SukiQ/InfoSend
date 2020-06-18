@@ -59,7 +59,7 @@ public class CUCCInfo implements OrgInfo {
 
             vo = cuccUtil.buildAlarmReqMsg(this.structureMsg(builtFunc));
 
-            startSign = StringUtil.intToBytes(CUCCACKMsgVO.startSign, 2);
+            startSign = StringUtil.intToBytes(CUCCACKMsgVO.START_SIGN, 2);
             msgType = StringUtil.intToBytes(vo.getMsgType(), 1);
             timeStamp = StringUtil.intToBytes(vo.getTimeStamp(), 4);
             msgLength = StringUtil.intToBytes(vo.getMsgBody().getBytes(Propert.getPropert().getCharset()).length, 2);

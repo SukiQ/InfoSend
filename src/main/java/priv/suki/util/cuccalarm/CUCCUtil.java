@@ -6,7 +6,6 @@ import priv.suki.util.StringUtil;
 import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import priv.suki.util.cuccalarm.CUCCACKMsgVO;
 
 import java.io.*;
 import java.util.HashMap;
@@ -16,10 +15,10 @@ import java.util.Map;
  * 读取CUCC告警接口工具类
  *
  * @author 花小琪
- * @version 1.0
+ * @version 1.0.3
  */
 public class CUCCUtil {
-    private static Log log = LogFactory.getLog(CUCCUtil.class);
+    private static final Log log = LogFactory.getLog(CUCCUtil.class);
     // 锁对象
     private final Object sendLock = new Object();
     private final Object receiveLock = new Object();
@@ -72,7 +71,7 @@ public class CUCCUtil {
                     /* 开始标志：固定为0xFFFF，消息开始标识。 */
                     disHead = new DataInputStream(byis);
                     short startsign = disHead.readShort();
-                    if (startsign == CUCCACKMsgVO.startSign) {
+                    if (startsign == CUCCACKMsgVO.START_SIGN) {
                         /*
                          * 消息类型：单字节整型数，类型编码含义如下：
                          * 0:realTimeAlarm
@@ -122,7 +121,7 @@ public class CUCCUtil {
                 return false;
             } else {
                 try (ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream(9); DataOutputStream oos = new DataOutputStream(byteOutStream)) {
-                    oos.writeShort(CUCCACKMsgVO.startSign);
+                    oos.writeShort(CUCCACKMsgVO.START_SIGN);
                     oos.writeByte(msg.getMsgType());
                     oos.writeInt(msg.getTimeStamp());
                     oos.writeShort(msg.getMsgBody().getBytes(Propert.getPropert().getCharset()).length);
@@ -155,13 +154,14 @@ public class CUCCUtil {
                     if (values.length > 2) {
                         log.error("不正确的响应消息格式:" + bodymsg);
                         return null;
-                    } else
+                    } else {
                         msgs.put(values[0], values[1]);
+                    }
                 } else {
                     msgs.put("msgtype", keyvaluemsg);
                 }
             }
-        } else if (bodymsg != null && !bodymsg.trim().equals("")) {
+        } else if (bodymsg != null && !"".equals(bodymsg.trim())) {
             msgs.put("single", bodymsg);
         } else {
             log.error("传入的参数为空");

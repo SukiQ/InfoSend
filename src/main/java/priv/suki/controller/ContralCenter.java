@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import priv.suki.frame.cuccalarm.CUCCAlarmPage;
-import priv.suki.controller.ProductionThread;
 import priv.suki.frame.syslog.SyslogPage;
 import priv.suki.msg.SNMPBindVar;
 import priv.suki.send.SendFactory;
@@ -67,8 +66,10 @@ public class ContralCenter extends Thread {
     private boolean cutSwitch = false;
     // OMC缓存历史告警List
     private List<String> cachelist = new ArrayList<>();
-    private boolean north_sync_switch = false;// OMC消息同步开关
-    private int north_sync_number = 0;// OMC消息同步序列号
+    // OMC消息同步开关
+    private boolean north_sync_switch = false;
+    // OMC消息同步序列号
+    private int north_sync_number = 0;
 
     public ContralCenter() {
         Thread.currentThread().setName("ContralThread");
@@ -402,16 +403,16 @@ public class ContralCenter extends Thread {
         return north_sync_switch;
     }
 
-    public void setNorth_sync_switch(boolean north_sync_switch) {
-        this.north_sync_switch = north_sync_switch;
+    public void setNorth_sync_switch(boolean northSyncSwitch) {
+        this.north_sync_switch = northSyncSwitch;
     }
 
     public int getNorth_sync_number() {
         return north_sync_number;
     }
 
-    public void setNorth_sync_number(int north_sync_number) {
-        this.north_sync_number = north_sync_number;
+    public void setNorth_sync_number(int northSyncNumber) {
+        this.north_sync_number = northSyncNumber;
     }
 
     private void setOmcAlarmId(String alarmIdField) throws Exception {
@@ -539,8 +540,8 @@ public class ContralCenter extends Thread {
         this.stormSend = stormSend;
     }
 
-    public boolean isStormReady() {
-        return stormReady;
+    public boolean isPreparing() {
+        return !stormReady;
     }
 
     void setStormReady(boolean stormReady) {
@@ -770,7 +771,7 @@ public class ContralCenter extends Thread {
         setStormSend(true);
         ProductionThread.getProduction().interrupt();
         logger.info("平稳期结束，开始风暴发送");
-        while (!ContralCenter.getContral().isStormReady()) {
+        while (ContralCenter.getContral().isPreparing()) {
             Thread.sleep(1);
         }
 

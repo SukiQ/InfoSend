@@ -1,15 +1,12 @@
 package priv.suki.frame.i1alarm;
 
 import priv.suki.frame.util.FrameHelper;
-import priv.suki.util.Propert;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Dialog.ModalExclusionType;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * 北向接口参数说明界面
@@ -19,7 +16,7 @@ import java.awt.event.ActionListener;
  */
 public class I1AlarmReadPage {
     // Log
-    private static Log log = LogFactory.getLog(I1AlarmReadPage.class);
+    private static final Log log = LogFactory.getLog(I1AlarmReadPage.class);
     private static I1AlarmReadPage northAlarmReadPage = new I1AlarmReadPage();
     private static JFrame InfoSend;
 
@@ -60,25 +57,23 @@ public class I1AlarmReadPage {
         panel.setBackground(FrameHelper.MAIN_TONE);
         InfoSend.getContentPane().add(panel);
 
-        JLabel lblNewLabel_logo = new JLabel("");
-        lblNewLabel_logo.setIcon(new ImageIcon(FrameHelper.LOGO_ICON_IMAGE_PATH));
-        lblNewLabel_logo.setBounds(651, 414, 134, 80);
-        InfoSend.getContentPane().add(lblNewLabel_logo);
+        JLabel lblNewLabelLogo = new JLabel("");
+        lblNewLabelLogo.setIcon(new ImageIcon(FrameHelper.LOGO_ICON_IMAGE_PATH));
+        lblNewLabelLogo.setBounds(651, 414, 134, 80);
+        InfoSend.getContentPane().add(lblNewLabelLogo);
 
-        JButton btnNewButton_return = new JButton("Return");
-        btnNewButton_return.setBackground(new Color(255, 255, 255));
-        btnNewButton_return.setToolTipText("");
+        JButton btnNewButtonReturn = new JButton("Return");
+        btnNewButtonReturn.setBackground(new Color(255, 255, 255));
+        btnNewButtonReturn.setToolTipText("");
 
         /*Return按钮监听*/
-        btnNewButton_return.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                I1AlarmPage.initInterfacePage().getInterfacePage();
-                InfoSend.setVisible(false);
-            }
+        btnNewButtonReturn.addActionListener(e -> {
+            I1AlarmPage.initInterfacePage().getInterfacePage();
+            InfoSend.setVisible(false);
         });
-        btnNewButton_return.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-        btnNewButton_return.setBounds(0, 0, 201, 48);
-        InfoSend.getContentPane().add(btnNewButton_return);
+        btnNewButtonReturn.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+        btnNewButtonReturn.setBounds(0, 0, 201, 48);
+        InfoSend.getContentPane().add(btnNewButtonReturn);
 
         JEditorPane description = new JEditorPane();
         description.setFont(new Font("微软雅黑 Light", Font.PLAIN, 16));
@@ -86,11 +81,11 @@ public class I1AlarmReadPage {
         description.setBounds(14, 143, 758, 336);
         InfoSend.getContentPane().add(description);
 
-        JEditorPane description_title = new JEditorPane();
-        description_title.setText("\u7535\u4FE1I1\u544A\u8B66\u63A5\u53E3");
-        description_title.setFont(new Font("微软雅黑 Light", Font.BOLD, 20));
-        description_title.setBounds(14, 91, 155, 48);
-        InfoSend.getContentPane().add(description_title);
+        JEditorPane descriptionTitle = new JEditorPane();
+        descriptionTitle.setText("\u7535\u4FE1I1\u544A\u8B66\u63A5\u53E3");
+        descriptionTitle.setFont(new Font("微软雅黑 Light", Font.BOLD, 20));
+        descriptionTitle.setBounds(14, 91, 155, 48);
+        InfoSend.getContentPane().add(descriptionTitle);
 
     }
 

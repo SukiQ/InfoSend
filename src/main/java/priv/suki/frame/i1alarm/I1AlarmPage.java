@@ -13,7 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 /**
  * OMC北向接口参数配置界面
@@ -67,17 +66,13 @@ public class I1AlarmPage {
         comboBox_interface = new JComboBox();
         comboBox_interface.setBounds(0, 0, 199, 48);
 
-        /**
-         * 接口选择框监听
+        /*
+          接口选择框监听
          */
-        comboBox_interface.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    ContralCenter.getContral().setSelInterface(e.getItem().toString());
-                    InfoSend.setVisible(false);
-                }
-                ;
+        comboBox_interface.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                ContralCenter.getContral().setSelInterface(e.getItem().toString());
+                InfoSend.setVisible(false);
             }
         });
         comboBox_interface.setToolTipText("");
@@ -154,7 +149,6 @@ public class I1AlarmPage {
                 /* 设置报错弹窗 */
                 JOptionPane.showConfirmDialog(InfoSend, t.getMessage(), "Error", JOptionPane.OK_CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE);
-                return;
             }
 
         });

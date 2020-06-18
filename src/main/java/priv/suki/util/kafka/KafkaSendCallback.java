@@ -12,17 +12,15 @@ import org.apache.commons.logging.Log;
  */
 public class KafkaSendCallback implements Callback {
 
-    private Log log = null;
-    private ProducerRecord<Object, Object> record = null;
-    @SuppressWarnings("unused")
-    private MessageProducer producer_apache = null;
+    private final Log log;
+    private final ProducerRecord<Object, Object> record;
 
-    public KafkaSendCallback(ProducerRecord<Object, Object> record_, MessageProducer producer_apache_, Log log) {
+    public KafkaSendCallback(ProducerRecord<Object, Object> record_, MessageProducer producerApache, Log log) {
         this.record = record_;
-        this.producer_apache = producer_apache_;
         this.log = log;
     }
 
+    @Override
     public void onCompletion(RecordMetadata recordMetadata, Exception e) {
 
 

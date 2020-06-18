@@ -48,8 +48,8 @@ public class IBMMQSend implements Send {
 	}
 
 	@Override
-	/**
-	 * 初始化IBMMQ
+	/*
+	  初始化IBMMQ
 	 */
 	public boolean init() {
 		try {

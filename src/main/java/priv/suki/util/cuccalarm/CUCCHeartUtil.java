@@ -12,7 +12,7 @@ import java.io.BufferedOutputStream;
  * CUCC告警接口反馈消息线程
  *
  * @author 花小琪
- * @version 1.0
+ * @version 1.0.3
  */
 public class CUCCHeartUtil implements Runnable {
     private Boolean isstop = true;

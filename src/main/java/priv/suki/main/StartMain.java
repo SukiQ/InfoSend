@@ -18,10 +18,10 @@ import priv.suki.frame.HomePage;
  */
 public class StartMain {
 
-    private static Log log = LogFactory.getLog(StartMain.class);
+    private static final Log log = LogFactory.getLog(StartMain.class);
 
     static {
-        PropertyConfigurator.configure(".." + Propert.SYS_FILE_SPARATOR + "cfg" + Propert.SYS_FILE_SPARATOR + "log4j.properties");
+        PropertyConfigurator.configure("." + Propert.SYS_FILE_SPARATOR + "InfoSend" + Propert.SYS_FILE_SPARATOR + "cfg" + Propert.SYS_FILE_SPARATOR + "log4j.properties");
 
     }
 

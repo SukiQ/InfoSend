@@ -21,7 +21,7 @@ public class CmdMonitor implements Runnable {
 
     private static final Log log = LogFactory.getLog(CmdMonitor.class);
     private InputStream inputStream = null;
-    private boolean _Current = true;
+    private final boolean _Current = true;
 
 
     @Override
