@@ -4,7 +4,10 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +20,7 @@ public class StringUtil {
     public static final int BYTE2 = 2;
     public static final int BYTE3 = 3;
     public static final int BYTE4 = 4;
+
 
     /**
      * 根据正则，获取需要的String（正则中括号包裹范围内，是需要取出的部分）
@@ -45,6 +49,15 @@ public class StringUtil {
     }
 
     /**
+     * 判定字符是否为空
+     *
+     * @return 是否为O空
+     */
+    public static boolean isBlank(Object str) {
+        return str == null || "".equals(str.toString());
+    }
+
+    /**
      * 构造消息体
      *
      * @return 消息
@@ -61,6 +74,11 @@ public class StringUtil {
             /* 消息流水号函数 */
             if ("${id}".equals(s)) {
                 resultMsg.append(builtFunc.id());
+                continue;
+            }
+            /* 顺序显示多种消息函数 */
+            if (s.matches("^(?:\\$\\{CASE).*(?:})$")) {
+                resultMsg.append(builtFunc.caseOrder(s));
                 continue;
             }
             resultMsg.append(s);
@@ -160,5 +178,11 @@ public class StringUtil {
 
         return null;
     }
+
+    public static String getDateTimeAsString(LocalDateTime localDateTime, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        return localDateTime.format(formatter);
+    }
+
 
 }

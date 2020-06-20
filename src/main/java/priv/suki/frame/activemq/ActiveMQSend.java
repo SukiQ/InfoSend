@@ -181,11 +181,9 @@ public class ActiveMQSend {
         /**
          * 顺序发送选择框监听，选贼后会打开相关的填选框
          */
-        checkbox_normal.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                panel_stormParam.setVisible(false);
-                panel_sendParam.setVisible(true);
-            }
+        checkbox_normal.addActionListener(e -> {
+            panel_stormParam.setVisible(false);
+            panel_sendParam.setVisible(true);
         });
         scrollPane = new JScrollPane();
         scrollPane.setBounds(36, 0, 409, 367);
