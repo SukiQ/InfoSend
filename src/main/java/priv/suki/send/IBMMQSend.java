@@ -1,16 +1,12 @@
 package priv.suki.send;
 
-import priv.suki.util.Propert;
+import com.ibm.mq.*;
+import com.ibm.mq.constants.MQConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import priv.suki.msg.OrgInfo;
-import com.ibm.mq.MQC;
-import com.ibm.mq.MQEnvironment;
-import com.ibm.mq.MQMessage;
-import com.ibm.mq.MQPutMessageOptions;
-import com.ibm.mq.MQQueue;
-import com.ibm.mq.MQQueueManager;
+import priv.suki.util.Propert;
 
 /**
  * IBMMQ接口实现类
@@ -19,8 +15,8 @@ import com.ibm.mq.MQQueueManager;
  * @version 1.0.2
  */
 public class IBMMQSend implements Send {
-	private static Log log = LogFactory.getLog(IBMMQSend.class);
-	private static Logger logger = Logger.getLogger("Log4jMain");
+	private static final Log log = LogFactory.getLog(IBMMQSend.class);
+	private static final Logger logger = Logger.getLogger("Log4jMain");
 	private String charset;
 	private MQQueue qQueue;
 	private MQQueueManager queueMgr;
@@ -48,9 +44,6 @@ public class IBMMQSend implements Send {
 	}
 
 	@Override
-	/*
-	  初始化IBMMQ
-	 */
 	public boolean init() {
 		try {
 			charset = Propert.getPropert().getCharset();
@@ -63,7 +56,7 @@ public class IBMMQSend implements Send {
 			MQEnvironment.disableTracing();
 
 			queueMgr = new MQQueueManager(Propert.getPropert().getIbmmqQueueManager());
-			int qOptioin = MQC.MQOO_INPUT_AS_Q_DEF | MQC.MQOO_INQUIRE | MQC.MQOO_OUTPUT;
+			int qOptioin = MQConstants.MQOO_INPUT_AS_Q_DEF | MQConstants.MQOO_INQUIRE | MQConstants.MQOO_OUTPUT;
 			qQueue = queueMgr.accessQueue(Propert.getPropert().getIbmmqQueueName(), qOptioin);
 			logger.info("队列" + Propert.getPropert().getIbmmqQueueName() + "创建完毕");
 

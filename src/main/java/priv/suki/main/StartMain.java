@@ -28,7 +28,7 @@ public class StartMain {
     public static void main(String[] args) {
 
         Thread.currentThread().setName("StartMain");
-        log.info("InfoSendV1.0.3_@Suki花小琪 already start");
+        log.info("InfoSendV1.0.4_@Suki花小琪 already start");
 
         /*
          * 启动控制线程
@@ -38,7 +38,7 @@ public class StartMain {
         /*
          * 区分操作系统
          */
-        if (Judge.judgeWindows()) { //windows
+        if (Judge.judgeWindows()) {
 
             /* 打开初始页界面 */
             HomePage.getHomePage();

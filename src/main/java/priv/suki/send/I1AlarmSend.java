@@ -29,8 +29,8 @@ import java.util.List;
  * @version 1.0.3
  */
 public class I1AlarmSend implements Send {
-    private static Log log = LogFactory.getLog(I1AlarmSend.class);
-    private static Logger logger = Logger.getLogger("Log4jMain");
+    private static final Log log = LogFactory.getLog(I1AlarmSend.class);
+    private static final Logger logger = Logger.getLogger("Log4jMain");
     private ServerSocket server = null;
     private Socket socket = null;
     private String charset;
@@ -59,8 +59,8 @@ public class I1AlarmSend implements Send {
                     if (ContralCenter.getContral().getNorth_sync_number() != 0) {
                         int alarmId = Propert.getPropert().getOmcAlarmId();
                         int interval = Propert.getPropert().getInterval();
-                        long start_time;
-                        long end_time;
+                        long startTime;
+                        long endTime;
                         BuiltFunc func;
                         OrgInfo buildMsg;
                         OrgInfo orgInfo = new I1AlarmInfo();
@@ -78,7 +78,7 @@ public class I1AlarmSend implements Send {
                         int sendNum = Propert.getPropert().getMsgNum();
                         for (int i = tempAlarmId / Propert.getPropert().getMsgNum(); i >= 0; i--) {
 
-                            start_time = System.currentTimeMillis();
+                            startTime = System.currentTimeMillis();
 
                             if (i == 0) {
                                 sendNum = tempAlarmId % Propert.getPropert().getMsgNum();
@@ -90,15 +90,15 @@ public class I1AlarmSend implements Send {
                             bos.write(msg);
                             bos.flush();
 
-                            end_time = System.currentTimeMillis();
+                            endTime = System.currentTimeMillis();
                             /*发送延时*/
-                            if (end_time - start_time < interval) {
-                                Thread.sleep(interval - (end_time - start_time));
+                            if (endTime - startTime < interval) {
+                                Thread.sleep(interval - (endTime - startTime));
                                 continue;
 
                             }
                             logger.info("补发" + buildMsg + "条");
-                            log.info("发送超时" + (end_time - start_time - interval) + "毫秒");
+                            log.info("发送超时" + (endTime - startTime - interval) + "毫秒");
                         }
                         logger.info("补发结束，开始正常接收");
                     }
@@ -146,9 +146,9 @@ public class I1AlarmSend implements Send {
 
             i1Util.send(bos, i1Util.buildAlarmReqMsg(msg));
 
-        } catch (InterruptedException Interrupted) {
+        } catch (InterruptedException interrupted) {
 
-            throw Interrupted;
+            throw interrupted;
 
         } catch (Exception e) {
 
