@@ -38,7 +38,7 @@ public enum InterfaceEnum {
     /**
      * OMC北向告警
      */
-    OMC("OMC北向告警", "omc", OrgInfo.class, priv.suki.send.NorthAlarmSend.class),
+    OMC("OMC北向告警", "omc", OmcInfo.class, priv.suki.send.NorthAlarmSend.class),
     /**
      * Kafka
      */

@@ -108,7 +108,7 @@ public class ProductionThread extends Thread {
         InterfaceEnum interfaceType = ContralCenter.getContral().getSelInterface();
 
         //特殊接口需要变换消息类型
-        if (Judge.isSpecialInterface(interfaceType)) {
+        if (Judge.isSpecialInterface(interfaceType) && (!Propert.getPropert().isFast())) {
             orgInfo = StringInfo.class.newInstance();
         } else {
             orgInfo = (OrgInfo) interfaceType.getInfoType().newInstance();

@@ -1,12 +1,11 @@
 package priv.suki.send;
 
-import priv.suki.util.Propert;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
-
 import priv.suki.controller.ContralCenter;
 import priv.suki.msg.OrgInfo;
+import priv.suki.util.Propert;
 import priv.suki.util.kafka.MessageProducer;
 
 /**
@@ -30,7 +29,7 @@ public class KafkaSend implements Send {
     }
 
     @Override
-    public boolean send(OrgInfo object) throws InterruptedException {
+    public boolean send(OrgInfo object) {
         String msg = object.getMsg().toString();
         try {
             /* 算分区数 */
@@ -38,7 +37,7 @@ public class KafkaSend implements Send {
             /* 指定分区发送 */
             if (ContralCenter.getContral().getSendType() == Propert.PARTITION_SEND) {
                 if (Propert.getPropert().getSend_partition() == -1) {
-                    partition = ContralCenter.getContral().getSendNum() % Propert.getPropert().getParitition();
+                    partition = getPartition();
                     producer.send(null, msg.getBytes(charset), Propert.getPropert().getTopic(), partition, false);
                 } else {
                     partition = Propert.getPropert().getSend_partition();
@@ -46,7 +45,15 @@ public class KafkaSend implements Send {
                 }
 
             } else {
-                producer.send(msg.getBytes(charset), Propert.getPropert().getTopic());
+
+                //如果填分区了散列发送
+                if (Propert.getPropert().getParitition() > 0) {
+                    partition = getPartition();
+                    producer.send(null, msg.getBytes(charset), Propert.getPropert().getTopic(), partition, false);
+                } else {
+                    producer.send(msg.getBytes(charset), Propert.getPropert().getTopic());
+                }
+
             }
             logger.info("本次消息已经发送至" + partition + "分区");
         } catch (Exception e) {
@@ -84,6 +91,22 @@ public class KafkaSend implements Send {
             producer = null;
         }
 
+    }
+
+    /**
+     * 散列计算分区数
+     *
+     * @return 分区数
+     */
+    private static int getPartition() {
+        /*
+         * 不拼接发送
+         */
+        if (!Propert.getPropert().isBulidsend()) {
+            int sendNumber = ContralCenter.getContral().getSendNum() * ContralCenter.getContral().getNobuildrate() + ContralCenter.getContral().getNobuildsendNum();
+            return sendNumber % Propert.getPropert().getParitition();
+        }
+        return ContralCenter.getContral().getSendNum() % Propert.getPropert().getParitition();
     }
 
 }

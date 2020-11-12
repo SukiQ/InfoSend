@@ -23,7 +23,7 @@ import priv.suki.msg.OrgInfo;
  */
 public class SOCKET_SERVER implements Send {
     private static Log log = LogFactory.getLog(SOCKET_SERVER.class);
-    private static Logger logger = Logger.getLogger("Log4jMain");
+    private static final Logger logger = Logger.getLogger("Log4jMain");
     private ServerSocket server = null;
     private Socket socket = null;
     private String charset;

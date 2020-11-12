@@ -28,7 +28,7 @@ public class IBMMQSend implements Send {
 	}
 
 	@Override
-	public boolean send(OrgInfo object) throws InterruptedException {
+	public boolean send(OrgInfo object) {
 
 		try {
 			String msg = object.toString();

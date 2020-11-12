@@ -16,7 +16,6 @@ D:\project\InfoSend\src\main\java\priv\suki\frame\northalarm\NorthAlarmReadPage.
 D:\project\InfoSend\src\main\java\priv\suki\frame\socketserver\SocketServerSend.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\northalarm\NorthAlarmPage.java
 D:\project\InfoSend\src\main\java\priv\suki\main\CmdDeal.java
-D:\project\InfoSend\src\main\java\priv\suki\process\service\SendParam.java
 D:\project\InfoSend\src\main\java\priv\suki\main\StartMain.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\cuccalarm\CUCCAlarmPage.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\socketserver\SocketServerPage.java
@@ -25,10 +24,8 @@ D:\project\InfoSend\src\main\java\priv\suki\frame\ibmmq\IBMMQSend.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\snmp\SNMPSend.java
 D:\project\InfoSend\src\main\java\priv\suki\controller\ContralCenter.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\socketclient\SocketClientPage.java
-D:\project\InfoSend\src\main\java\priv\suki\process\service\SendUnit.java
 D:\project\InfoSend\src\main\java\priv\suki\send\IBMMQSend.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\socketclient\SocketClientReadPage.java
-D:\project\InfoSend\src\main\java\priv\suki\inf\InterfaceFactory.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\i1alarm\I1AlarmPage.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\gndp\GNDPReadPage.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\snmp\SNMPReadPage.java
@@ -40,12 +37,10 @@ D:\project\InfoSend\src\main\java\priv\suki\util\cuccalarm\CUCCHeartUtil.java
 D:\project\InfoSend\src\main\java\priv\suki\msg\I1AlarmInfo.java
 D:\project\InfoSend\src\main\java\priv\suki\util\ClassUtil.java
 D:\project\InfoSend\src\main\java\priv\suki\util\FrameUtil.java
-D:\project\InfoSend\src\main\java\priv\suki\controller\ContralService.java
 D:\project\InfoSend\src\main\java\priv\suki\msg\CUCCInfo.java
 D:\project\InfoSend\src\main\java\priv\suki\util\DynamicLoadJarUtil.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\activemq\ActiveMQSend.java
 D:\project\InfoSend\src\main\java\priv\suki\util\CaseObject.java
-D:\project\InfoSend\src\main\java\priv\suki\inf\info\ActiveMQ.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\kafka\KafkaSend.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\cuccalarm\CUCCAlarmReadPage.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\syslog\SyslogReadPage.java
@@ -72,7 +67,6 @@ D:\project\InfoSend\src\main\java\priv\suki\frame\telnet\TelnetPage.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\telnet\TelnetSend.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\socketserver\SocketServerReadPage.java
 D:\project\InfoSend\src\main\java\priv\suki\controller\CmdMonitor.java
-D:\project\InfoSend\src\main\java\priv\suki\process\SendService.java
 D:\project\InfoSend\src\main\java\priv\suki\util\northalarm\CommonACKMsgVO.java
 D:\project\InfoSend\src\main\java\priv\suki\send\SendFactory.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\kafka\KafkaReadPage.java
@@ -81,16 +75,12 @@ D:\project\InfoSend\src\main\java\priv\suki\util\i1\I1CommonACKMsgVO.java
 D:\project\InfoSend\src\main\java\priv\suki\util\AppenderThread.java
 D:\project\InfoSend\src\main\java\priv\suki\util\restful\RestfulService.java
 D:\project\InfoSend\src\main\java\priv\suki\send\SNMPSend.java
-D:\project\InfoSend\src\main\java\priv\suki\inf\info\SocketSever.java
 D:\project\InfoSend\src\main\java\priv\suki\send\NorthAlarmSend.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\syslog\SyslogPage.java
-D:\project\InfoSend\src\main\java\priv\suki\process\service\DataTypeEnum.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\kafka\KafkaPage.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\ibmmq\IBMMQReadPage.java
-D:\project\InfoSend\src\main\java\priv\suki\inf\info\SocketClient.java
 D:\project\InfoSend\src\main\java\priv\suki\send\DBSend.java
 D:\project\InfoSend\src\main\java\priv\suki\frame\gndp\GNDPSend.java
-D:\project\InfoSend\src\main\java\priv\suki\inf\InterfaceObject.java
 D:\project\InfoSend\src\main\java\priv\suki\util\restful\RestHandler.java
 D:\project\InfoSend\src\main\java\priv\suki\util\InterfaceEnum.java
 D:\project\InfoSend\src\main\java\priv\suki\util\northalarm\HeartUtil.java
